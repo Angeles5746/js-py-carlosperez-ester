@@ -52,30 +52,36 @@ if __name__ == "__main__":
     main()
 
 # Función para encontrar el número mayor y menor en un arreglo
-def encontrarMayorYMenor(numeros):
-    if not isinstance(numeros, list) or len(numeros) == 0:
-        return {"mayor": None, "menor": None}
-    mayor = numeros[0]
-    menor = numeros[0]
-    for num in numeros:
-        if not isinstance(num, (int, float)) or num != num:  # Verificar si es número y no es NaN
-            return {"mayor": None, "menor": None}
-        if num > mayor:
-            mayor = num
-        if num < menor:
-            menor = num
-    return {"mayor": mayor, "menor": menor}
+function encontrarMayorYMenor(numeros) {
+  if (!Array.isArray(numeros) || numeros.length === 0) {
+    return { mayor: null, menor: null };
+  }
+  let mayor = numeros[0];
+  let menor = numeros[0];
+  for (const num of numeros) {
+    if (typeof num !== "number" || isNaN(num)) {
+      return { mayor: null, menor: null };
+    }
+    if (num > mayor) mayor = num;
+    if (num < menor) menor = num;
+  }
+  return { mayor, menor };
+}
 
-# Generar una lista aleatoria de números para ejemplo
-numeros_aleatorios = [12, 45, 7, 23, 89, 3, 76, 54, 34, 2]
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-# Encontrar el mayor y el menor
-resultado = encontrarMayorYMenor(numeros_aleatorios)
+readline.question('Ingresa una lista de números separados por coma: ', input => {
+  const numeros = input.split(',').map(num => parseFloat(num.trim()));
+  const { mayor, menor } = encontrarMayorYMenor(numeros);
 
-# Mostrar los resultados
-print(f"Números: {numeros_aleatorios}")
-if resultado["mayor"] is not None and resultado["menor"] is not None:
-    print(f"🔼 Mayor: {resultado['mayor']}")
-    print(f"🔽 Menor: {resultado['menor']}")
-else:
-    print("No se pudo determinar el mayor y el menor. Asegúrate de ingresar números válidos.")
+  if (mayor !== null && menor !== null) {
+    console.log(`🔼 Mayor: ${mayor}`);
+    console.log(`🔽 Menor: ${menor}`);
+  } else {
+    console.log("No se pudo determinar el mayor y el menor. Asegúrate de ingresar solo números válidos.");
+  }
+  readline.close();
+});
