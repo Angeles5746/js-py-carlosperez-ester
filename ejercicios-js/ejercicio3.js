@@ -1,12 +1,28 @@
-// Generar un número aleatorio entre 1 y 10
-const numero = Math.floor(Math.random() * 10) + 1;
+const palabras = [
+  "Aceituna", "Murciélago", "Educación", "Aeropuerto", "Otorrinolaringólogo",
+  "Euforia", "Aceite", "Paleontólogo", "Arquitectura", "Hipopótamo"
+];
 
-console.log(`📘 Tabla de multiplicar del ${numero}`);
-console.log("=".repeat(30));
+// Elegir una palabra aleatoria
+const palabraAleatoria = palabras[Math.floor(Math.random() * palabras.length)];
 
-for (let i = 1; i <= 10; i++) {
-  const resultado = numero * i;
-  console.log(`${numero} x ${i.toString().padStart(2, ' ')} = ${resultado.toString().padStart(3, ' ')}`);
+// Definir conjunto de vocales (con tildes incluidas)
+const vocalesValidas = new Set("aeiouáéíóú");
+
+// Extraer vocales únicas y contar repeticiones
+const vocalesEncontradas = [];
+const conteoVocales = {};
+
+for (const letra of palabraAleatoria.toLowerCase()) {
+  if (vocalesValidas.has(letra)) {
+    vocalesEncontradas.push(letra);
+    conteoVocales[letra] = (conteoVocales[letra] || 0) + 1;
+  }
 }
 
-console.log("=".repeat(30));
+// Mostrar resultados mejorados
+console.log("🔤 Palabra seleccionada:", palabraAleatoria);
+console.log("🟠 Vocales encontradas:", vocalesEncontradas.join(", "));
+console.log("🔢 Total de vocales:", vocalesEncontradas.length);
+console.log("📊 Conteo por vocales:", conteoVocales);
+console.log("🔎 Vocales únicas:", [...new Set(vocalesEncontradas)].join(", "));
