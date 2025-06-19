@@ -1,14 +1,21 @@
-// Juego de adivinar el número
-let intento;
-const secreto = Math.floor(Math.random() * 100) + 1; // Generar el número secreto solo una vez
+// Generar un arreglo de 10 números aleatorios entre 1 y 100
+const numerosAleatorios = Array.from({ length: 10 }, () => Math.floor(Math.random() * 100) + 1);
 
-do {
-  intento = Math.floor(Math.random() * 100) + 1; // Simula un intento aleatorio
-  if (intento < secreto) {
-    console.log(`${intento} es menor ❌`);
-  } else if (intento > secreto) {
-    console.log(`${intento} es mayor ❌`);
-  }
-} while (intento !== secreto);
+// Separar en pares e impares usando reduce (más eficiente que filtrar dos veces)
+const { pares, impares } = numerosAleatorios.reduce(
+  (acc, num) => {
+    num % 2 === 0 ? acc.pares.push(num) : acc.impares.push(num);
+    return acc;
+  },
+  { pares: [], impares: [] }
+);
 
-console.log(`¡Correcto! El número era ${secreto} ✅`);
+// Mostrar los resultados
+console.log(" Números generados:");
+console.table(numerosAleatorios);
+
+console.log(" Números pares:");
+console.table(pares);
+
+console.log(" Números impares:");
+console.table(impares);
